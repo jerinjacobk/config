@@ -193,3 +193,6 @@ bindsym $mod+x scratchpad show
 # Show the sup-mail scratchpad window, if any.
 bindsym $mod+c [title="^Sup ::"] scratchpad show
 
+# Thunar
+bindsym $mod+t exec thunar
+
