@@ -1,0 +1,23 @@
+[user]
+	name = Jerin Jacob
+	email = jerin.jacob@caviumnetworks.com
+
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+
+[sendemail]
+	smtpuser = jkollanukkaran@caviumnetworks.com
+	smtpserver = smtp.office365.com
+	smtpserverport = 587
+	smtpencryption = tls
+	confirm = auto
+	chainreplyto=true
+[push]
+	default = simple
+[color]
+	ui = auto
