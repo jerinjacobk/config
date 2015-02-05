@@ -52,16 +52,10 @@ sudo cpupower frequency-set -g performance
 startx /usr/bin/i3
 fi
 
-# Prompting: Returns whether there is data to be commited in this
-# directory's git repository
-function parse_git_dirty {
-   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
-}
-
 # Prompting: Returns the branch for the current directory's git repo
 # or blank if there is no repo
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
 }
 
 export PS1="${COLOR_BRIGHT}${COLOR_FG_RED}➜${COLOR_RESET} ${COLOR_BRIGHT}${COLOR_FG_RED}"'$(parse_git_branch)'"${COLOR_RESET}${COLOR_FG_YELLOW}laptop${COLOR_RESET} [${COLOR_DIM}${COLOR_FG_CYAN}\W${COLOR_RESET}] ${COLOR_BRIGHT}${COLOR_FG_RED}\\\$ ${COLOR_RESET}"
