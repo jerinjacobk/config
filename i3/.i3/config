@@ -15,7 +15,10 @@ set $mod Mod4
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+#font pango:DejaVu Sans Mono 10
+#font pango:DejaVu Sans Mono 10
+font pango:Monospace 9
+#
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -160,6 +163,7 @@ bar {
 	    inactive_workspace #333333 #222222 #888888
 	    urgent_workspace   #aa0000 #990000 #ffffff
 	}
+	font pango:Monospace 9
         status_command i3status -c ~/.i3/i3status.conf
 }
 
@@ -195,4 +199,11 @@ bindsym $mod+c [title="^Sup ::"] scratchpad show
 
 # Thunar
 bindsym $mod+t exec thunar
+
+# multi-monitor setup
+exec --no-startup-id xrandr | grep -v "DP1-3 connected" 1> /dev/null &&  xrandr --output eDP1 --scale .75x.75
+exec --no-startup-id xrandr | grep "DP1-3 connected" 1> /dev/null &&  xrandr --output eDP1 --scale .75x.75 --right-of DP1-3
+
+bindsym $mod+m exec xrandr --output DP1-3 --auto && xrandr | grep "DP1-3 connected" 1> /dev/null &&  xrandr --output eDP1 --auto --scale .75x.75 --right-of DP1-3
+bindsym $mod+o exec xrandr --output eDP1  --off
 
