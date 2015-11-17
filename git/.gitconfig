@@ -16,8 +16,10 @@
 	smtpserverport = 587
 	smtpencryption = tls
 	confirm = auto
-	chainreplyto=true
+	chainreplyto=false
 [push]
 	default = simple
 [color]
 	ui = auto
+[diff]
+	algorithm = patience
