@@ -1,5 +1,6 @@
+source "gpg -d ~/.mutt/passwords.gpg |"
+set sort=threads
 set imap_user="jkollanukkaran@caviumnetworks.com" #your IMAP user name or login
-#set imap_pass="Y0urP45sw0rD!" #your IMAP password
 
 set smtp_authenticators="login"
 set ssl_use_sslv3=yes
@@ -9,7 +10,6 @@ bind pager N search-opposite
 
 # SMTP
 set smtp_url="smtp://jkollanukkaran@caviumnetworks.com@outlook.office365.com:587/"
-#set smtp_pass="Y0urP45sw0rD!"
 set from="jerin.jacob@caviumnetworks.com"
 set realname="Jerin Jacob"
 #
@@ -21,6 +21,16 @@ set folder="imap://outlook.office365.com/"
 set record="imap://outlook.office365.com/Sent Items"
 mailboxes
 
+mailboxes "=inbox"
+
+color hdrdefault white black  # headers white on black
+color header brightgreen black ^From:  # sender's name in green
+color quoted cyan black  # quoted text in blue
+color signature red black   # signature in red
+
+alternative_order text/plain text/html
+auto_view text/html
+
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things even more up.
 set header_cache = ~/.cache/mutt
@@ -29,4 +39,7 @@ set header_cache = ~/.cache/mutt
 # Can be the same folder as header_cache.
 # This will cost important disk usage according to your e-mail amount.
 set message_cachedir = "~/.cache/mutt"
+set followup_to=yes
 
+#set attribution='-----Original Message-----'
+#set header #include header of message when replying
