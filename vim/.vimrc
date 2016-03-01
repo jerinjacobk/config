@@ -7,4 +7,5 @@ match OverLength /\%81v.\+/
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$\| \+\ze\t/
 "se nu
+set hlsearch
 set term=cons25
