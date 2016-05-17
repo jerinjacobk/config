@@ -2,10 +2,11 @@ syntax enable
 "set background=light
 "colorscheme darkblue
 filetype plugin on
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+highlight OverLength ctermbg=white ctermfg=red guibg=#ff0000
 match OverLength /\%81v.\+/
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$\| \+\ze\t/
 "se nu
-set hlsearch
-set term=cons25
+set cc=80
+:autocmd FileType mail :nmap <F8> :w<CR>:!aspell -e -c %<CR>:e<CR>
+

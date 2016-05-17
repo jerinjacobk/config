@@ -185,6 +185,7 @@ workspace_layout tabbed
 exec --no-startup-id xsetroot -solid '#101010'
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id gnome-terminal
+exec --no-startup-id pidgin
 
 assign [title="i3"] 4
 
