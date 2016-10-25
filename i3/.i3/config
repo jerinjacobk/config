@@ -164,7 +164,9 @@ bar {
 	    urgent_workspace   #aa0000 #990000 #ffffff
 	}
 	font pango:Monospace 9
-        status_command i3status -c ~/.i3/i3status.conf
+        #status_command i3status -c ~/.i3/i3status.conf
+        #sudo pip install py3status
+        status_command py3status -c ~/.i3/i3status.conf
 }
 
 # Colors
@@ -183,6 +185,7 @@ workspace_layout tabbed
 
 # Startup programs
 exec --no-startup-id xsetroot -solid '#101010'
+#exec --no-startup-id google-chrome-beta
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id gnome-terminal
 exec --no-startup-id pidgin
