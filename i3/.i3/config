@@ -165,7 +165,7 @@ bar {
 	}
 	font pango:Monospace 9
         #status_command i3status -c ~/.i3/i3status.conf
-        #sudo pip install py3status
+        #sudo dnf install py3status
         status_command py3status -c ~/.i3/i3status.conf
 }
 
