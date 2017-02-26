@@ -42,6 +42,8 @@ export PATH=/export/SDK/OCTEON-SDK-3_1_1_P2/tools/bin/:/export/sdk_thunderx/tool
 #export LD_LIBRARY_PATH=/home/jerin/toolchain-install-gcc_5_3-421/lib64/:${LD_LIBRARY_PATH}
 
 #export TERM=screen
+#export EXTRA_CFLAGS='-g -ggdb'
+#export EXTRA_LDFLAGS='-g -ggdb'
 
 alias m="make -j 8"
 alias l="ls -ltr"
@@ -52,11 +54,23 @@ alias v="vim"
 alias g="git"
 alias c="clear"
 
+export BR2_DL_DIR=/export/dl/
+
+#export LD_LIBRARY_PATH=/opt/gcc-6.1.0/lib64/
+#export PATH=/opt/gcc-6.1.0/bin:$PATH
+
 if [ ! -f /tmp/xinit.run ]; then
 #set to max cpu  clock
 touch /tmp/xinit.run
 sudo iptables -F
 sudo cpupower frequency-set -g performance
+
+#sudo chmod 777 /dev/ttyUSB0
+#sudo chmod 777 /dev/ttyUSB1
+#sudo chmod 777 /dev/ttyUSB2
+#sudo chmod 777 /dev/ttyUSB3
+#sudo mount /dev/sda6 /export/
+
 #startx
 startx /usr/bin/i3 1> /tmp/1.txt  2> /tmp/2.txt
 fi
