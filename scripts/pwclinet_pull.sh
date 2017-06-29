@@ -3,7 +3,8 @@
 
 test=$(basename $0)
 
-while [ "$1" != "" ]; do
+apply_patch()
+{
 	pwclient get $1 2> /dev/null 1> /tmp/$test
 	if [ $? -ne 0 ]; then
 		echo "pwclient get failed $1"
@@ -20,7 +21,23 @@ while [ "$1" != "" ]; do
 		git checkout .
 		exit
 	fi
+}
 
-	shift;
-done;
+if [ `echo $1 | grep -c "-" ` -gt 0 ]
+then
+	base=`echo $1 | cut -f 1 -d -`
+	num=`echo $1 | cut -f 2 -d -`
+	end=`expr $base + $num - 1`
+	changes=`seq -s' ' $base $end`
+	for change in $changes
+	do
+		apply_patch $change
+	done
+else
+	while [ "$1" != "" ]; do
+		apply_patch $1
+		shift;
+	done;
+fi
+
 
