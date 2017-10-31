@@ -16,7 +16,7 @@ do
 	#echo "$f"
 	rm -rf build
 	git clean -xdf 2>/dev/null 1>/dev/null
-	git am $f
+	git am -3 $f
 	if [ $? -ne 0 ]; then
 		git reset --hard $changeset
 		echo "git am failed $f"
@@ -53,7 +53,7 @@ do
 	#echo "$f"
 	rm -rf build
 	git clean -xdf 2>/dev/null 1>/dev/null
-	git am $f
+	git am -3 $f
 	if [ $? -ne 0 ]; then
 		echo "git am failed $f"
 		git reset --hard $changeset
@@ -118,7 +118,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-armv8a-linuxapp-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config&& make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-armv8a-linuxapp-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "arm64 build gcc failed"
@@ -126,7 +126,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-thunderx-linuxapp-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-thunderx-linuxapp-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "arm64-thunderx build gcc failed"
@@ -134,7 +134,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-export EXTRA_CFLAGS= && export EXTRA_LDFLAGS= && rm -rf build && make -j 8 config RTE_ARCH=arm T=arm-armv7a-linuxapp-gcc CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(_KMOD=)y,\1n,' build/.config && make -j 8 test-build CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log
+export EXTRA_CFLAGS= && export EXTRA_LDFLAGS= && rm -rf build && make -j 8 config RTE_ARCH=arm T=arm-armv7a-linuxapp-gcc CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "arm32 build gcc failed"
