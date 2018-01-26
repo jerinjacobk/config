@@ -28,6 +28,14 @@ do
 		git reset --hard $changeset
 		exit
 	fi
+
+	make -j8 1> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		echo "make failed $f"
+		git reset --hard $changeset
+		exit
+	fi
+
 	make -j8 test-build 1> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		echo "make test-build failed $f"
@@ -65,6 +73,14 @@ do
 		git reset --hard $changeset
 		exit
 	fi
+
+	make -j8 1> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		echo "make failed $f"
+		git reset --hard $changeset
+		exit
+	fi
+
 	make -j8 test-build 1> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		echo "make test-build failed $f"
