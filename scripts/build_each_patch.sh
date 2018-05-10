@@ -98,16 +98,30 @@ do
 	fi
 done
 
-git clean -xdf 2>/dev/null 1>/dev/null
-export DPDK_DEP_ZLIB=y
-export DPDK_DEP_PCAP=y
-export DPDK_DEP_SSL=y
-./devtools/test-build.sh -j8 x86_64-native-linuxapp-gcc+shared x86_64-native-linuxapp-gcc+debug 2> /tmp/build.log 1> /tmp/build.log
-if [ $? -ne 0 ]; then
-	echo "test-build.sh failed"
-	git reset --hard $changeset
-	exit
-fi
+git reset --hard $changeset
+
+echo "shared lib test"
+for f in $files
+do
+	#echo "$f"
+	rm -rf build
+	git clean -xdf 2>/dev/null 1>/dev/null
+	git am -3 $f
+	if [ $? -ne 0 ]; then
+		echo "git am failed $f"
+		git reset --hard $changeset
+		exit
+	fi
+	export DPDK_DEP_ZLIB=y
+	export DPDK_DEP_PCAP=y
+	export DPDK_DEP_SSL=y
+	./devtools/test-build.sh -j8 x86_64-native-linuxapp-gcc+shared x86_64-native-linuxapp-gcc+debug 2> /tmp/build.log 1> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		echo "shared lib failed"
+		git reset --hard $changeset
+		exit
+	fi
+done
 
 git clean -xdf 2>/dev/null 1>/dev/null
 rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=x86_64-native-linuxapp-gcc 2> /tmp/build.log 1> /tmp/build.log && make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
