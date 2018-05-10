@@ -1,6 +1,8 @@
 #!/bin/bash
 # set -x
 
+export MESON_PARAMS='-Dwerror=true -Dexamples=bond,bbdev_app,cmdline,distributor,eventdev_pipeline,exception_path,flow_classify,flow_filtering,helloworld,ip_fragmentation,ip_pipeline,ip_reassembly,ipsec-secgw,ipv4_multicast,kni,l2fwd,l2fwd-crypto,l2fwd-jobstats,l2fwd-keepalive,l3fwd,l3fwd-acl,l3fwd-power,l3fwd-vf,link_status_interrupt,load_balancer,packet_ordering,ptpclient,qos_meter,qos_sched,rxtx_callbacks,service_cores,skeleton,tep_termination,timer,vhost,vhost_scsi,vmdq,vmdq_dcb'
+
 files=$1/*
 
 changeset=`git log --oneline | head -n 1 | cut -f 1 -d " "`
@@ -115,10 +117,33 @@ do
 	export DPDK_DEP_ZLIB=y
 	export DPDK_DEP_PCAP=y
 	export DPDK_DEP_SSL=y
-	./devtools/test-build.sh -j8 x86_64-native-linuxapp-gcc+shared x86_64-native-linuxapp-gcc+debug 2> /tmp/build.log 1> /tmp/build.log
+	./devtools/test-build.sh -j8 x86_64-native-linuxapp-gcc+shared+debug x86_64-native-linuxapp-gcc+debug 2> /tmp/build.log 1> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		echo "shared lib failed"
 		git reset --hard $changeset
+		exit
+	fi
+done
+
+git reset --hard $changeset
+
+echo "meson shared lib test"
+for f in $files
+do
+	#echo "$f"
+	rm -rf build
+	git clean -xdf 2>/dev/null 1>/dev/null
+	git am -3 $f
+	CC="ccache gcc" meson --default-library=shared $MESON_PARAMS gcc-shared-build 2> /tmp/build.log 1> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "meson: gcc-shared-build config failed"
+		exit
+	fi
+	ninja -C gcc-shared-build 2> /tmp/build.log 1> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "meson: gcc-shared-build failed"
 		exit
 	fi
 done
@@ -173,27 +198,6 @@ fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
-
-#### MESON build
-
-#export MESON_PARAMS='-Dwerror=true -Dexamples=bond,bbdev_app,cmdline,distributor,eventdev_pipeline,exception_path,flow_classify,flow_filtering,helloworld,ip_fragmentation,ip_pipeline,ip_reassembly,ipsec-secgw,ipv4_multicast,kni,l2fwd,l2fwd-crypto,l2fwd-jobstats,l2fwd-keepalive,l3fwd,l3fwd-acl,l3fwd-power,l3fwd-vf,link_status_interrupt,load_balancer,packet_ordering,ptpclient,qos_meter,qos_sched,rxtx_callbacks,service_cores,skeleton,tep_termination,timer,vhost,vhost_scsi,vmdq,vmdq_dcb'
-#ip_pipeline has some issue with arm64 build in ninja(comment it out for time being)
-export MESON_PARAMS='-Dwerror=true -Dexamples=bond,bbdev_app,cmdline,distributor,eventdev_pipeline,exception_path,flow_classify,flow_filtering,helloworld,ip_fragmentation,ip_reassembly,ipsec-secgw,ipv4_multicast,kni,l2fwd,l2fwd-crypto,l2fwd-jobstats,l2fwd-keepalive,l3fwd,l3fwd-acl,l3fwd-power,l3fwd-vf,link_status_interrupt,load_balancer,packet_ordering,ptpclient,qos_meter,qos_sched,rxtx_callbacks,service_cores,skeleton,tep_termination,timer,vhost,vhost_scsi,vmdq,vmdq_dcb'
-
-## gcc shared
-echo "gcc shared build"
-CC="ccache gcc" meson --default-library=shared $MESON_PARAMS gcc-shared-build 2> /tmp/build.log 1> /tmp/build.log
-if [ $? -ne 0 ]; then
-        git reset --hard $changeset
-        echo "meson: gcc-shared-build config failed"
-        exit
-fi
-ninja -C gcc-shared-build 2> /tmp/build.log 1> /tmp/build.log
-if [ $? -ne 0 ]; then
-        git reset --hard $changeset
-        echo "meson: gcc-shared-build failed"
-        exit
-fi
 
 ## gcc static
 echo "gcc static build"
