@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -x
 
-export MESON_PARAMS='-Dwerror=true -Dexamples=bond,bbdev_app,cmdline,distributor,eventdev_pipeline,exception_path,flow_classify,flow_filtering,helloworld,ip_fragmentation,ip_pipeline,ip_reassembly,ipsec-secgw,ipv4_multicast,kni,l2fwd,l2fwd-crypto,l2fwd-jobstats,l2fwd-keepalive,l3fwd,l3fwd-acl,l3fwd-power,l3fwd-vf,link_status_interrupt,load_balancer,packet_ordering,ptpclient,qos_meter,qos_sched,rxtx_callbacks,service_cores,skeleton,tep_termination,timer,vhost,vhost_scsi,vmdq,vmdq_dcb'
+export MESON_PARAMS='-Dwerror=true -Dexamples=all'
 
 files=$1/*
 
