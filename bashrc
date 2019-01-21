@@ -41,7 +41,7 @@ export PATH=/export/SDK/OCTEON-SDK-3_1_1_P2/tools/bin/:/export/sdk_thunderx/tool
 #export PATH=/home/jerin/toolchain-install-gcc_5_3-421/bin:$PATH
 #export LD_LIBRARY_PATH=/home/jerin/toolchain-install-gcc_5_3-421/lib64/:${LD_LIBRARY_PATH}
 
-#export TERM=screen
+export TERM=xterm-256color
 #export EXTRA_CFLAGS='-g -ggdb'
 #export EXTRA_LDFLAGS='-g -ggdb'
 
