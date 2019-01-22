@@ -1,0 +1,3 @@
+xrdb -merge ~/.Xresources
+xsetroot -solid '#101010'
+exec dbus-launch /usr/bin/i3
