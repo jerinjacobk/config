@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -x
 
-export MESON_PARAMS='-Dwerror=true -Dexamples=all'
+export MESON_PARAMS='-Dwerror=true -Dexamples=all -Denable_kmods=false'
 
 files=$1/*
 
