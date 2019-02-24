@@ -91,8 +91,7 @@ sudo cpupower frequency-set -g performance
 #sudo chmod 777 /dev/ttyUSB3
 #sudo mount /dev/sda6 /export/
 
-#startx
-startx /usr/bin/i3 1> /tmp/1.txt  2> /tmp/2.txt
+	startx
 fi
 
 # Prompting: Returns the branch for the current directory's git repo
