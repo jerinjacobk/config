@@ -1,6 +1,7 @@
 [user]
 	name = Jerin Jacob
-	email = jerin.jacob@caviumnetworks.com
+	email = jerinj@marvell.com
+#	email = jerinjacobk@gmail.com
 
 [alias]
 	st = status
@@ -11,17 +12,39 @@
 	lg = log -p
 
 [sendemail]
-	smtpuser = jkollanukkaran@caviumnetworks.com
+	smtpuser = jerinj@marvell.com
 	smtpserver = smtp.office365.com
 	smtpserverport = 587
 	smtpencryption = tls
 	confirm = auto
 	chainreplyto=false
+	transferEncoding=8bit
+	from = jerinj@marvell.com
+
+[sendemail "netdev"]
+	smtpserver = smtp.gmail.com
+	smtpuser = jerinjacobk@gmail.com
+	smtpencryption = tls
+	smtpserverport = 587
+	chainreplyto = false
+
 [push]
 	default = simple
+
 [color]
 	ui = auto
+
 [diff]
 	algorithm = patience
+
 [core]
 	excludesfile = ~/.gitignore
+
+[pw]
+	server = http://dpdk.org/dev/patchwork/
+	token = bf3fbecf5ec9cb41065542a5d4972ad6aa62d626
+	project = dpdk
+
+[gitreview]
+	remote = origin
+	username = jkollanukkaran

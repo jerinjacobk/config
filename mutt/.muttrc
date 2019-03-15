@@ -1,45 +1,14 @@
-source "gpg -d ~/.mutt/passwords.gpg |"
-set sort=threads
-set imap_user="jkollanukkaran@caviumnetworks.com" #your IMAP user name or login
+set from = "jerinj@marvell.com"
+set realname = "Jerin Jacob"
+set smtp_url="smtp://jerinj%40marvell.com@outlook.office365.com/"
+set folder="imaps://jerinj%40marvell.com@outlook.office365.com/"
+set spoolfile="+Inbox"
+set postponed="+Drafts"
+set record="+Sent Items"
 
 set smtp_authenticators="login"
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set mail_check=60
 set ssl_use_sslv3=yes
-set timeout=15
-bind index N search-opposite
-bind pager N search-opposite
-
-# SMTP
-set smtp_url="smtp://jkollanukkaran@caviumnetworks.com@outlook.office365.com:587/"
-set from="jerin.jacob@caviumnetworks.com"
-set realname="Jerin Jacob"
-#
-# # IMAP
-set mbox="imap://outlook.office365.com/INBOX"
-set postponed="imap://outlook.office365.com/Drafts"
-set spoolfile="imap://outlook.office365.com/INBOX"
-set folder="imap://outlook.office365.com/"
-set record="imap://outlook.office365.com/Sent Items"
-mailboxes
-
-mailboxes "=inbox"
-
-color hdrdefault white black  # headers white on black
-color header brightgreen black ^From:  # sender's name in green
-color quoted cyan black  # quoted text in blue
-color signature red black   # signature in red
-
-alternative_order text/plain text/html
-auto_view text/html
-
-# Store message headers locally to speed things up.
-# If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things even more up.
-set header_cache = ~/.cache/mutt
-#
-# Store messages locally to speed things up, like searching message bodies.
-# Can be the same folder as header_cache.
-# This will cost important disk usage according to your e-mail amount.
-set message_cachedir = "~/.cache/mutt"
-set followup_to=yes
-
-#set attribution='-----Original Message-----'
-#set header #include header of message when replying
+set header_cache=~/.hcache
