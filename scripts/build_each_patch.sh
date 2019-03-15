@@ -24,7 +24,7 @@ do
 		echo "git am failed $f"
 		exit
 	fi
-	make config T=x86_64-native-linuxapp-gcc 1> /tmp/build.log
+	make config T=x86_64-native-linux-gcc 1> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		echo "make config failed $f"
 		git reset --hard $changeset
@@ -69,7 +69,7 @@ do
 		git reset --hard $changeset
 		exit
 	fi
-	make config T=x86_64-native-linuxapp-clang 1> /tmp/build.log
+	make config T=x86_64-native-linux-clang 1> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		echo "make config failed $f"
 		git reset --hard $changeset
@@ -149,7 +149,7 @@ do
 done
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=x86_64-native-linuxapp-gcc 2> /tmp/build.log 1> /tmp/build.log && make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=x86_64-native-linux-gcc 2> /tmp/build.log 1> /tmp/build.log && make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "x86_64 build gcc failed"
@@ -157,7 +157,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=x86_64-native-linuxapp-clang 2> /tmp/build.log 1> /tmp/build.log && make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=x86_64-native-linux-clang 2> /tmp/build.log 1> /tmp/build.log && make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "x86_64 build clang failed"
@@ -165,7 +165,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=i686-native-linuxapp-gcc 2> /tmp/build.log 1> /tmp/build.log &&  sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config &&  make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=i686-native-linux-gcc 2> /tmp/build.log 1> /tmp/build.log &&  sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config &&  make -j 8 test-build 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "x86_32 build gcc failed"
@@ -173,7 +173,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-armv8a-linuxapp-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-armv8a-linux-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "arm64 build gcc failed"
@@ -181,7 +181,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-thunderx-linuxapp-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
+rm -rf build && unset RTE_KERNELDIR && make -j 8 config T=arm64-thunderx-linux-gcc  CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=aarch64-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "arm64-thunderx build gcc failed"
@@ -189,7 +189,7 @@ if [ $? -ne 0 ]; then
 fi
 #add shared buidl
 git clean -xdf 2>/dev/null 1>/dev/null
-export EXTRA_CFLAGS= && export EXTRA_LDFLAGS= && rm -rf build && make -j 8 config RTE_ARCH=arm T=arm-armv7a-linuxapp-gcc CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log
+export EXTRA_CFLAGS= && export EXTRA_LDFLAGS= && rm -rf build && make -j 8 config RTE_ARCH=arm T=arm-armv7a-linux-gcc CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && make -j 8 test-build CROSS=arm-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "arm32 build gcc failed"
@@ -246,7 +246,7 @@ fi
 
 ## thunder cross shared build
 echo "thunderx cross shared build"
-meson --default-library=shared $MESON_PARAMS --cross-file config/arm/arm64_thunderx_linuxapp_gcc thunderx-shared-build 2> /tmp/build.log 1> /tmp/build.log
+meson --default-library=shared $MESON_PARAMS --cross-file config/arm/arm64_thunderx_linux_gcc thunderx-shared-build 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
         git reset --hard $changeset
         echo "meson: thunderx-shared-config failed"
@@ -261,7 +261,7 @@ fi
 
 ## thunderx static build
 echo "thunderx cross static build"
-meson --default-library=static $MESON_PARAMS --cross-file config/arm/arm64_thunderx_linuxapp_gcc thunderx-static-build 2> /tmp/build.log 1> /tmp/build.log
+meson --default-library=static $MESON_PARAMS --cross-file config/arm/arm64_thunderx_linux_gcc thunderx-static-build 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
         git reset --hard $changeset
         echo "meson: thunderx-static-config failed"
@@ -276,7 +276,7 @@ fi
 
 ## generic arm64 static build
 echo "arm64 cross static build"
-meson --default-library=static $MESON_PARAMS --cross-file config/arm/arm64_armv8_linuxapp_gcc arm64-static-build 2> /tmp/build.log 1> /tmp/build.log
+meson --default-library=static $MESON_PARAMS --cross-file config/arm/arm64_armv8_linux_gcc arm64-static-build 2> /tmp/build.log 1> /tmp/build.log
 if [ $? -ne 0 ]; then
         git reset --hard $changeset
         echo "meson: arm64-static-config failed"
