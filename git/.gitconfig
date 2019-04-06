@@ -1,7 +1,6 @@
 [user]
 	name = Jerin Jacob
 	email = jerinj@marvell.com
-#	email = jerinjacobk@gmail.com
 
 [alias]
 	st = status
@@ -21,7 +20,7 @@
 	transferEncoding=8bit
 	from = jerinj@marvell.com
 
-[sendemail "netdev"]
+[sendemail "gmail"]
 	smtpserver = smtp.gmail.com
 	smtpuser = jerinjacobk@gmail.com
 	smtpencryption = tls
