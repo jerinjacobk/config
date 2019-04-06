@@ -37,6 +37,7 @@ fi
 
 # User specific aliases and functions
 export PATH=/export/SDK/OCTEON-SDK-3_1_1_P2/tools/bin/:/export/sdk_thunderx/tools/bin/:/opt/arm-2014.05/bin/:$PATH
+export PATH=/usr/lib/ccache/bin/:$PATH
 
 #export PATH=/home/jerin/toolchain-install-gcc_5_3-421/bin:$PATH
 #export LD_LIBRARY_PATH=/home/jerin/toolchain-install-gcc_5_3-421/lib64/:${LD_LIBRARY_PATH}
