@@ -1,0 +1,25 @@
+{
+    "telemetry.enableTelemetry": false,
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 0,
+    "terminal.integrated.shell.windows": "",
+    "files.eol": "\n",
+    "workbench.sideBar.location": "right",
+    "editor.folding": false,
+    "editor.lineNumbers": "off",
+    "editor.minimap.enabled": false,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 8,
+    "editor.glyphMargin": false,
+    "files.exclude": {
+        "**/.vscode": true
+    },
+    "workbench.colorTheme": "Monokai Light Theme",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "breadcrumbs.enabled": false,
+    "workbench.activityBar.visible": false,
+    "window.menuBarVisibility": "toggle",
+    "editor.rulers": [80],
+    "editor.autoClosingBrackets": "always",
+    "editor.renderIndentGuides": false,
+}
