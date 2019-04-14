@@ -2,7 +2,6 @@
     "telemetry.enableTelemetry": false,
     "workbench.startupEditor": "none",
     "window.zoomLevel": 0,
-    "terminal.integrated.shell.windows": "",
     "files.eol": "\n",
     "workbench.sideBar.location": "right",
     "editor.folding": false,
@@ -14,7 +13,7 @@
     "files.exclude": {
         "**/.vscode": true
     },
-    "workbench.colorTheme": "Monokai Light Theme",
+    "workbench.colorTheme": "FlatUI",
     "editor.multiCursorModifier": "ctrlCmd",
     "breadcrumbs.enabled": false,
     "workbench.activityBar.visible": false,
@@ -22,4 +21,9 @@
     "editor.rulers": [80],
     "editor.autoClosingBrackets": "always",
     "editor.renderIndentGuides": false,
+    "terminal.integrated.fontWeightBold": "bold",
+    "terminal.integrated.fontWeight": "600",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+    "terminal.integrated.shellArgs.windows": "--debug",
+    "projectManager.openInNewWindowWhenClickingInStatusBar": false,
 }
