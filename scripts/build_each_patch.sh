@@ -186,20 +186,15 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-export EXTRA_CFLAGS= && export EXTRA_LDFLAGS= && rm -rf build && make -j $cpus config RTE_ARCH=arm T=arm-armv7a-linux-gcc CROSS=arm-buildroot-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config &&  CC="ccache arm-buildroot-linux-gnueabihf-gcc" make -j $cpus test-build CROSS=arm-buildroot-linux-gnueabihf- 2> /tmp/build.log 1> /tmp/build.log
-if [ $? -ne 0 ]; then
-	git reset --hard $changeset
-	echo "arm32 build gcc failed"
-	exit
-fi
-
-git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
 
 ## coding standard checks
-./devtools/check-git-log.sh
-if [ $? -ne 0 ]; then
+./devtools/check-git-log.sh > /tmp/check-git-log.sh
+val=`wc -l /tmp/check-git-log.sh | cut -f1  -d " "`
+if [ $val -ne 0 ]; then
 	echo "check-git-log failed"
+	cat /tmp/check-git-log.sh
+	rm /tmp/check-git-log.sh
 	exit
 fi
 
