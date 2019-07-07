@@ -186,6 +186,28 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
+rm -rf build && unset RTE_KERNELDIR && make -j $cpus config T=arm64-armada-linuxapp-gcc  CROSS=/opt/marvell-tools-236.0/bin/aarch64-marvell-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log && sed -ri    's,(CONFIG_RTE_KNI_KMOD=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_VHOST_NUMA=)y,\1n,' build/.config &&  sed -ri  's,(CONFIG_RTE_EAL_NUMA_AWARE_HUGEPAGES=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_EAL_IGB_UIO=)y,\1n,' build/.config && sed -ri  's,(CONFIG_RTE_LIBRTE_PMD_MVSAM_CRYPTO=)y,\1n,' build/.config && make -j $cpus test-build CROSS=/opt/marvell-tools-236.0/bin/aarch64-marvell-linux-gnu- 2> /tmp/build.log 1> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "arm64-armada build failed"
+	exit
+fi
+
+git clean -xdf 2>/dev/null 1>/dev/null
+meson build --cross=config/arm/arm64_armada_linux_gcc -Dlib_musdk_dir="/home/jerin/musdk-marvell/usr/local/" 1> /tmp/build.log 2> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "arm64-armada meson config failed"
+	exit
+fi
+ninja -C build 1> /tmp/build.log 2> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "arm64-armada meson build failed"
+	exit
+fi
+
+git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
 
 ## coding standard checks
