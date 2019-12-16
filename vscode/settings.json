@@ -10,10 +10,10 @@
     "editor.insertSpaces": false,
     "editor.tabSize": 8,
     "editor.glyphMargin": false,
-    "files.exclude": {
-        "**/.vscode": true
+    "files.exlcude": {
+           "**/.vscode": true
     },
-    "workbench.colorTheme": "FlatUI",
+    "workbench.colorTheme": "Default Light+",
     "editor.multiCursorModifier": "ctrlCmd",
     "breadcrumbs.enabled": false,
     "workbench.activityBar.visible": false,
@@ -23,7 +23,28 @@
     "editor.renderIndentGuides": false,
     "terminal.integrated.fontWeightBold": "bold",
     "terminal.integrated.fontWeight": "600",
-    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Alacritty\\alacritty.exe",
     "terminal.integrated.shellArgs.windows": "--debug",
     "projectManager.openInNewWindowWhenClickingInStatusBar": false,
+    "editor.minimap.renderCharacters": false,
+    "editor.cursorBlinking": "phase",
+    "editor.hideCursorInOverviewRuler": true,
+    "terminal.integrated.cursorStyle": "line",
+    "vim.cursorStylePerMode.normal": "line",
+    "C_Cpp.updateChannel": "Insiders",
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false,
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff000009"
+    },
+    "git.suggestSmartCommit": false,
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.includePath": null,
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "workbench.editor.enablePreview": false,
+    "checkpatch.checkpatchArgs": [
+        "--no-tree  --max-line-length=80 --ignore=LINUX_VERSION_CODE,FILE_PATH_CHANGES,MAINTAINERS_STYLE,SPDX_LICENSE_TAG,VOLATILE,PREFER_PACKED,PREFER_ALIGNED,PREFER_PRINT,PREFER_KERNEL_TYPES,BIT_MACRO,CONST_STRUCT,SPLIT_STRING,LONG_LINE_STRING,LINE_SPACING,PARENTHESIS_ALIGNMENT,NETWORKING_BLOCK_COMMENT_STYLE,NEW_TYPEDEFS,COMPARISON_TO_NULL"
+    ],
+    "debug.onTaskErrors": "debugAnyway",
+    "C_Cpp.default.intelliSenseMode": "gcc-x64",
 }
