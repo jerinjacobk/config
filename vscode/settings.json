@@ -47,4 +47,9 @@
     ],
     "debug.onTaskErrors": "debugAnyway",
     "C_Cpp.default.intelliSenseMode": "gcc-x64",
+    "files.autoSave": "afterDelay",
+    "remote.SSH.remotePlatform": {
+        "10.28.34.14": "linux"
+    },
 }
+
