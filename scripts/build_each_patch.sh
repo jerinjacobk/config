@@ -1,6 +1,7 @@
 #!/bin/bash
 # set -x
 
+export MAKE_PAUSE=n
 
 files=$1/*
 cpus=`getconf _NPROCESSORS_ONLN`
@@ -137,7 +138,7 @@ do
 		git reset --hard $changeset
 		exit
 	fi
-	./devtools/test-meson-builds.sh 2> /tmp/build.log 1> /tmp/build.log
+	time ./devtools/test-meson-builds.sh 2> /tmp/build.log 1> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		git reset --hard $changeset
 		echo "meson: build failed"
