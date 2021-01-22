@@ -1,0 +1,26 @@
+{
+	"editor.detectIndentation": true,
+	"editor.formatOnSave": true,
+	"editor.formatOnType": true,
+	"[c]": {
+		"editor.defaultFormatter": "Gruntfuggly.format-modified"
+	},
+	"[cpp]": {
+		"editor.defaultFormatter": "Gruntfuggly.format-modified"
+	},
+	"format-modified.formatWholeDocument": false,
+	"format-modified.debug": true,
+	"format-modified.formatWholeDocumentOnFailure": false,
+	"format-modified.languages": [
+		"cpp",
+		"c"
+	],
+	"format-modified.configurationFileMapping": {
+		"**/*.h": "/home/jerin/config/clang-format/clang-format",
+		"**/*.c": "/home/jerin/config/clang-format/clang-format"
+	},
+	"format-modified.alternativeConfigurationFiles": [
+		"/home/jerin/config/clang-format/clang-100-format",
+		"/home/jerin/config/clang-format/clang-format"
+	],
+}

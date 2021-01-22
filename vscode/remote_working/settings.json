@@ -1,0 +1,133 @@
+{
+	"telemetry.enableTelemetry": false,
+	"workbench.startupEditor": "none",
+	"window.zoomLevel": 0,
+	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"workbench.sideBar.location": "right",
+	"editor.folding": false,
+	"editor.lineNumbers": "off",
+	"editor.minimap.enabled": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 8,
+	"editor.glyphMargin": false,
+	"files.exlcude": {
+		"**/.vscode": true
+	},
+	"workbench.colorTheme": "Default Light+",
+	"editor.multiCursorModifier": "ctrlCmd",
+	"breadcrumbs.enabled": false,
+	"workbench.activityBar.visible": false,
+	"window.menuBarVisibility": "toggle",
+	"editor.rulers": [
+		100
+	],
+	"C_Cpp.autocomplete": "Default",
+	"C_Cpp.clang_format_sortIncludes": true,
+	"C_Cpp.default.cStandard": "c11",
+	"C_Cpp.default.includePath": null,
+	"C_Cpp.default.intelliSenseMode": "gcc-x64",
+	"editor.formatOnSave": true,
+	"editor.formatOnType": true,
+	"C_Cpp.enhancedColorization": "Enabled",
+	"editor.autoClosingBrackets": "always",
+	"editor.renderIndentGuides": false,
+	"editor.detectIndentation": true,
+	"terminal.integrated.fontWeightBold": "bold",
+	"terminal.integrated.fontWeight": "600",
+	"terminal.integrated.shell.windows": "C:\\Program Files\\Alacritty\\alacritty.exe",
+	"terminal.integrated.shellArgs.windows": "--debug",
+	"editor.minimap.renderCharacters": false,
+	"editor.cursorBlinking": "phase",
+	"editor.hideCursorInOverviewRuler": true,
+	"terminal.integrated.cursorStyle": "line",
+	"vim.cursorStylePerMode.normal": "line",
+	"editor.renderWhitespace": "none",
+	"editor.renderControlCharacters": false,
+	"workbench.colorCustomizations": {
+		"editorRuler.foreground": "#ff000009",
+		"terminal.background": "#FFFFFF",
+		"terminal.foreground": "#000000",
+		"terminalCursor.background": "#FFFFFF",
+		"terminalCursor.foreground": "#000000",
+		"terminal.ansiBlack": "#EDEDED",
+		"terminal.ansiBlue": "#4271AE",
+		"terminal.ansiBrightBlack": "#969694",
+		"terminal.ansiBrightBlue": "#4271AE",
+		"terminal.ansiBrightCyan": "#3E999F",
+		"terminal.ansiBrightGreen": "#718C00",
+		"terminal.ansiBrightMagenta": "#8959A8",
+		"terminal.ansiBrightRed": "#D7005F",
+		"terminal.ansiBrightWhite": "#F5F5F5",
+		"terminal.ansiBrightYellow": "#D75F00",
+		"terminal.ansiCyan": "#3E999F",
+		"terminal.ansiGreen": "#718C00",
+		"terminal.ansiMagenta": "#8959A8",
+		"terminal.ansiRed": "#D7005F",
+		"terminal.ansiWhite": "#4D4D4C",
+		"terminal.ansiYellow": "#D75F00"
+	},
+	"git.suggestSmartCommit": false,
+	"workbench.editor.enablePreview": false,
+	"debug.onTaskErrors": "debugAnyway",
+	"editor.tokenColorCustomizations": {
+		"textMateRules": [
+			{
+				"scope": "storage.type",
+				"settings": {
+					"foreground": "#008000",
+                D75F00"
+				},
+			]
+		},
+		"files.autoSave": "afterDelay",
+		"remote.SSH.remotePlatform": {
+			"10.28.34.14": "linux"
+		},
+		"cSpell.languageSettings": [
+			{
+				"languageId": "cpp,c",
+				"allowCompoundWords": false,
+				"includeRegExpList": [
+					"CStyleComment",
+					"string"
+				],
+				"ignoreRegExpList": [
+					"/#include.*/"
+				]
+			}
+		],
+		"vim.vimrc.enable": true,
+		"vim.vimrc.path": "c:\\Users\\jerinj\\.vimrc",
+		"extensions.autoUpdate": true,
+		"cSpell.userWords": [
+			"BPID",
+			"CINT",
+			"Cavium",
+			"Gruntfuggly",
+			"MIDR",
+			"SIZEM",
+			"SPDX",
+			"SQB's",
+			"SQE's",
+			"Tailroom",
+			"XQESZ",
+			"dwords",
+			"endcond",
+			"iova",
+			"irqs",
+			"jerin",
+			"memzone",
+			"memzones",
+			"msix",
+			"qmask",
+			"sqes",
+			"subparam",
+			"sysfs",
+			"wdata",
+			"xxmm"
+		],
+		"C_Cpp.updateChannel": "Insiders",
+		"python.languageServer": "Pylance",
+	}

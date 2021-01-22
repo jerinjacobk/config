@@ -5,7 +5,7 @@ test=$(basename $0)
 
 pwclinet_get()
 {
-	pwclient get $1
+	git pw patch download $1 /tmp/r/
 	if [ $? -ne 0 ]; then
 		echo "pwclient get failed $1"
 		exit
