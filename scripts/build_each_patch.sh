@@ -1,6 +1,7 @@
 #!/bin/bash
 # set -x
 
+
 export MAKE_PAUSE=n
 
 files=$1/*
@@ -32,11 +33,44 @@ do
 		echo "meson: build failed"
 		exit
 	fi
+	./devtools/check-meson.py
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "./devtools/check-meson.py failed"
+		exit
+	fi
+	./devtools/check-spdx-tag.sh
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "./devtools/check-spdx-tag.sh failed"
+		exit
+	fi
+	./devtools/check-doc-vs-code.sh
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "./devtools/check-doc-vs-code.sh failed"
+		exit
+	fi
 	count=`expr $count + 1`
 done
 
 git clean -xdf 2>/dev/null 1>/dev/null
-meson build -Denable_docs=true 1> /tmp/build.log 2> /tmp/build.log
+meson build --cross=config/arm/arm64_armada_linux_gcc -Dlib_musdk_dir="/home/jerin/musdk-marvell/usr/local/" 1> /tmp/build.log 2> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "armada build config failed"
+	exit
+fi
+ninja -C build 1> /tmp/build.log 2> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "armada build failed"
+	exit
+fi
+
+
+git clean -xdf 2>/dev/null 1>/dev/null
+meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' --buildtype=debug -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "doc build config failed"
@@ -49,16 +83,31 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
+grep -ri "WARN" /tmp/build.log
+if [ $? -eq 0 ]; then
+	git reset --hard $changeset
+	echo "doc build has errros"
+	exit
+fi
+
 git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
 
 # ABI check
-#DPDK_ABI_REF_VERSION=v20.11 DPDK_ABI_REF_DIR=/tmp ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
+DPDK_ABI_REF_VERSION=v21.05 bash ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "ABI check failed"
 	exit
 fi
+
+grep "Error: ABI issue reported" /tmp/build.log
+if [ $? -eq 0 ]; then
+	echo "ABI issue"
+	exit
+fi
+
+grep "Error:" /tmp/build.log
 
 ./devtools/check-git-log.sh -n $count
 if [ $? $val -ne 0 ]; then
