@@ -55,7 +55,7 @@ do
 done
 
 git clean -xdf 2>/dev/null 1>/dev/null
-meson build --cross=config/arm/arm64_armada_linux_gcc -Dlib_musdk_dir="/home/jerin/musdk-marvell/usr/local/" 1> /tmp/build.log 2> /tmp/build.log
+PKG_CONFIG_PATH=/export/cross_prefix/prefix/lib/pkgconfig/ meson build --cross=config/arm/arm64_armada_linux_gcc  1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "armada build config failed"
@@ -68,6 +68,19 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
+git clean -xdf 2>/dev/null 1>/dev/null
+meson --cross-file config/x86/cross-mingw -Dexamples=helloworld build-mingw 1> /tmp/build.log 2> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "Windows build config failed"
+	exit
+fi
+ninja -C build-mingw/ 1> /tmp/build.log 2> /tmp/build.log
+if [ $? -ne 0 ]; then
+	git reset --hard $changeset
+	echo "Windows cross build failed"
+	exit
+fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
 meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' --buildtype=debug -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
@@ -94,7 +107,7 @@ git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
 
 # ABI check
-DPDK_ABI_REF_VERSION=v21.05 bash ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
+DPDK_ABI_REF_VERSION=v21.11 bash ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "ABI check failed"

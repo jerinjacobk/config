@@ -11,7 +11,7 @@ if [ "$1" == "" ]; then
 	exit
 fi
 
-rm -rf build && meson -Dexamples=all build  1> /tmp/build.log 2> /tmp/build.log
+rm -rf build && meson -Dexamples=all -Denable_docs=true build  1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	echo "config failed"
 	exit
@@ -28,6 +28,25 @@ do
 	ninja -C build 1> /tmp/build.log 2> /tmp/build.log
 	if [ $? -ne 0 ]; then
 		echo "build failed $f"
+		exit
+	fi
+	./devtools/check-meson.py
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "./devtools/check-meson.py failed"
+		exit
+	fi
+	./devtools/check-spdx-tag.sh
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "./devtools/check-spdx-tag.sh failed"
+		exit
+	fi
+	#./devtools/check-doc-vs-code.sh ef38db95de
+	./devtools/check-doc-vs-code.sh
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "./devtools/check-doc-vs-code.sh failed"
 		exit
 	fi
 done
