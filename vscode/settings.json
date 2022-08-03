@@ -21,7 +21,7 @@
     "workbench.activityBar.visible": false,
     "window.menuBarVisibility": "toggle",
     "editor.rulers": [
-        80
+        100
     ],
     "C_Cpp.autocomplete": "Default",
     "C_Cpp.clang_format_sortIncludes": true,
