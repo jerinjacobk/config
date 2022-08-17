@@ -83,7 +83,7 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' --buildtype=debug -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
+meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "doc build config failed"
@@ -107,7 +107,7 @@ git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
 
 # ABI check
-DPDK_ABI_REF_VERSION=v21.11 bash ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
+DPDK_ABI_REF_VERSION=v22.07 bash ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "ABI check failed"
