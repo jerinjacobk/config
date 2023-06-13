@@ -83,7 +83,8 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
+echo "https://bugs.dpdk.org/show_bug.cgi?id=1233 WK applied"
+meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' -Ddisable_drivers=bus/dpaa -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "doc build config failed"
@@ -106,8 +107,20 @@ fi
 git clean -xdf 2>/dev/null 1>/dev/null
 echo "build done"
 
+./devtools/check-git-log.sh -n $count
+if [ $? $val -ne 0 ]; then
+	echo "check-git-log failed"
+fi
+
+./devtools/checkpatches.sh -n $count
+if [ $? -ne 0 ]; then
+	echo "checkpatch failed"
+fi
+
 # ABI check
-DPDK_ABI_REF_VERSION=v22.07 bash ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
+
+DPDK_ABI_REF_SRC=/home/jerin/abi/dpdk-stable/  DPDK_ABI_REF_VERSION=v22.11.1 DPDK_ABI_REF_DIR=$PWD/build-abi  ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
+#echo "ABI check disabled for now, please enable post 22.11"
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "ABI check failed"
@@ -122,12 +135,3 @@ fi
 
 grep "Error:" /tmp/build.log
 
-./devtools/check-git-log.sh -n $count
-if [ $? $val -ne 0 ]; then
-	echo "check-git-log failed"
-fi
-
-./devtools/checkpatches.sh -n $count
-if [ $? -ne 0 ]; then
-	echo "checkpatch failed"
-fi
