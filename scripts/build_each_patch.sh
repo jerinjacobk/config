@@ -54,6 +54,37 @@ do
 	count=`expr $count + 1`
 done
 
+git reset --hard $changeset
+git clean -xdf 2>/dev/null 1>/dev/null
+
+echo "update -Dcargs and friends when libarchive fix avilable"
+echo "meson cnxk ml tvm build test"
+for f in $files
+do
+	git clean -xdf 2>/dev/null 1>/dev/null
+	git am -3 $f
+	if [ $? -ne 0 ]; then
+		echo "git am failed $f"
+		git reset --hard $changeset
+		exit
+	fi
+	CMAKE_PREFIX_PATH='/export/cross_ml/install/lib/cmake/tvm:/export/cross_ml/install/lib/cmake/dlpack:/export/cross_ml/install/lib/cmake/dmlc' PKG_CONFIG_PATH='/export/cross_ml/install/lib/pkgconfig/' meson setup --cross config/arm/arm64_cn10k_linux_gcc  -Denable_docs=true -Dexamples=all -Dc_args='-I/export/cross_ml/install/include' -Dc_link_args='-L/export/cross_ml/install/lib' build 1> /tmp/build.log 2> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "meson: cnxk tvm ml setup failed"
+		exit
+	fi
+	ninja -C build 1> /tmp/build.log 2> /tmp/build.log
+	if [ $? -ne 0 ]; then
+		git reset --hard $changeset
+		echo "meson: cnxk tvm ml build failed"
+		exit
+	fi
+ 
+
+	count=`expr $count + 1`
+done
+
 git clean -xdf 2>/dev/null 1>/dev/null
 PKG_CONFIG_PATH=/export/cross_prefix/prefix/lib/pkgconfig/ meson build --cross=config/arm/arm64_armada_linux_gcc  1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
@@ -83,8 +114,9 @@ if [ $? -ne 0 ]; then
 fi
 
 git clean -xdf 2>/dev/null 1>/dev/null
-echo "https://bugs.dpdk.org/show_bug.cgi?id=1233 WK applied"
-meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' -Ddisable_drivers=bus/dpaa -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
+#echo "https://bugs.dpdk.org/show_bug.cgi?id=1233 WK applied"
+#meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' -Ddisable_drivers=bus/dpaa -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
+meson --werror -Dc_args='-DRTE_ENABLE_ASSERT' -Denable_docs=true build 1> /tmp/build.log 2> /tmp/build.log
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "doc build config failed"
@@ -119,8 +151,8 @@ fi
 
 # ABI check
 
-DPDK_ABI_REF_SRC=/home/jerin/abi/dpdk-stable/  DPDK_ABI_REF_VERSION=v22.11.1 DPDK_ABI_REF_DIR=$PWD/build-abi  ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
-#echo "ABI check disabled for now, please enable post 22.11"
+# DPDK_ABI_REF_SRC=/home/jerin/abi/dpdk-stable/  DPDK_ABI_REF_VERSION=v22.11.1 DPDK_ABI_REF_DIR=$PWD/build-abi  ./devtools/test-meson-builds.sh 1> /tmp/build.log 2> /tmp/build.log
+echo "ABI check disabled for now, please enable post 23.11"
 if [ $? -ne 0 ]; then
 	git reset --hard $changeset
 	echo "ABI check failed"
