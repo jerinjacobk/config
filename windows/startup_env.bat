@@ -1,6 +1,6 @@
 @echo off
 REM === Load your DOSKEY macros ===
-doskey /macrofile="C:\Users\jerin\doskey_macros.cmd"
+doskey /macrofile="C:\Users\jerin\config\windows\doskey_macros.cmd"
 
 REM === Change to working directory ===
 cd /d "C:\Users\jerin\jtrade"
