@@ -5,7 +5,6 @@
 	"files.eol": "\n",
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
-	"workbench.sideBar.location": "right",
 	"editor.folding": false,
 	"editor.lineNumbers": "off",
 	"editor.minimap.enabled": false,
