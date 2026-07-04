@@ -31,3 +31,4 @@ s=ssh jerin@192.168.1.77
 m=cmake -S . -B build
 n=cmake --build build --config Release
 t=coreutils rm -rf trace* k.txt
+mc="C:\Program Files\Midnight Commander\mc.exe" $*"
