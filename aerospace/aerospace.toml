@@ -1,7 +1,7 @@
 # Config version for compatibility and deprecations
 config-version = 2
 
-after-startup-command = []
+after-startup-command = ['workspace 1', 'layout accordion']
 start-at-login = true
 
 accordion-padding = 0
@@ -16,7 +16,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 automatically-unhide-macos-hidden-apps = false
 
-persistent-workspaces = ["1", "2"]
+persistent-workspaces = ["1", "2", "3"]
 
 on-mode-changed = []
 
@@ -39,10 +39,12 @@ on-mode-changed = []
     # Switch workspaces
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
-
+    alt-3 = 'workspace 3'
+   
     # Move focused window to a workspace
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
 
     # Jump back to previous workspace
     alt-tab = 'focus-back-and-forth'
@@ -55,6 +57,9 @@ on-mode-changed = []
     alt-u = 'exec-and-forget open -a "Cursor"'
     alt-c = 'exec-and-forget open -a "Claude"'
     alt-s = 'exec-and-forget open -a "Slack"'
+    alt-p = 'exec-and-forget open -a "Skim"'
+    alt-z = 'exec-and-forget open -a "Zoom.us"'
+    alt-o = 'exec-and-forget open -a "Microsoft PowerPoint"'
 
 # ── Workspace 1: main apps ────────────────────────────────────────────────────
 
@@ -82,20 +87,33 @@ on-mode-changed = []
     if.app-id = 'com.tinyspeck.slackmacgap'
     run = 'move-node-to-workspace 1'
 
-# ── Workspace 2: background apps ─────────────────────────────────────────────
+[[on-window-detected]]
+    if.app-id = 'net.sourceforge.skim-app.skim'
+    run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
-    if.app-id = 'com.cisco.secureclient.gui'
+    if.app-id = 'com.microsoft.Powerpoint'
+    run = 'move-node-to-workspace 1'
+
+# ── Workspace 2: Zoom ─────────────────────────────────────────────
+[[on-window-detected]]
+    if.app-id = 'us.zoom.xos'
     run = 'move-node-to-workspace 2'
+
+# ── Workspace 3: background apps ─────────────────────────────────────────────
+[[on-window-detected]]
+    if.app-id = 'com.cisco.secureclient.gui'
+    run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
     if.app-id = 'com.microsoft.OneDrive'
-    run = 'move-node-to-workspace 2'
+    run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
     if.app-id = 'com.avecto.defendpoint'
-    run = 'move-node-to-workspace 2'
+    run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
     if.app-id = 'com.okta.mobile'
-    run = 'move-node-to-workspace 2'
+    run = 'move-node-to-workspace 3'
+
